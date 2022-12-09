@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
+import deleteLogo from "./delete.png";
+import updateLogo from "./update.png";
 
 export function InstrumentSinglePage(props) {
   //const id = props.match.params.hangszerId;
@@ -13,7 +15,7 @@ export function InstrumentSinglePage(props) {
     setPending(true);
     (async () => {
       try {
-        const res = await fetch(`${process.env.REACT_APP_BACK_URL}/api/instruments/${id}`, { credentials: "include" });
+        const res = await fetch(`http://localhost:9000/instruments/${id}`);
         const hangszer = await res.json();
         setInstrument(hangszer);
       } catch (e) {
@@ -37,9 +39,17 @@ export function InstrumentSinglePage(props) {
             <p>Készleten: {instrument.quantity} db</p>
             <img
               className="img-fluid rounded"
-              style={{ maxHeight: "500px" }}
+              style={{ maxHeight: "500px", marginBottom: "10px" }}
               src={instrument.imageURL ? instrument.imageURL : "https://via.placeholder.com/400x800"}
             />
+            <div>
+              <NavLink>
+                  <img src={updateLogo} style={{width: "40px"}}/>
+              </NavLink>
+              <NavLink>
+              <img src={deleteLogo} style={{width: "40px"}} />
+              </NavLink>
+            </div>
           </div>
         </div>
       )}

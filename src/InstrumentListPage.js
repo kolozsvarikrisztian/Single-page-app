@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react"; 
 import { NavLink } from "react-router-dom";
+import deleteLogo from "./delete.png";
+import updateLogo from "./update.png";
 
 export function InstrumentListPage() {
     const [instruments, setInstruments] = useState([]);
     const [isFetchPending, setFetchPending] = useState(false);
     useEffect(() => {
         setFetchPending(true);
-        fetch("https://kodbazis.hu/api/instruments", { credentials: "include" })
+        fetch("http://localhost:9000/instruments")
         .then((res) => res.json())
         .then((hangszerek) => setInstruments(hangszerek))
         .catch(console.log)
@@ -32,9 +34,17 @@ export function InstrumentListPage() {
                         <div className="card-body">
                             <img
                                 className="img-fluid"
-                                style={{ maxHeight: 200 }}
+                                style={{ maxHeight: 200, marginBottom: "10px" }}
                                 src={instrument.imageURL ? instrument.imageURL : "https://via.placeholder.com/400x800"}
                             />
+                            <div>
+                                <NavLink>
+                                    <img src={updateLogo} style={{width: "40px"}}/>
+                                </NavLink>
+                                <NavLink>
+                                <img src={deleteLogo} style={{width: "40px"}} />
+                                </NavLink>
+                            </div>
                         </div>
                 </div>
                         </NavLink> 

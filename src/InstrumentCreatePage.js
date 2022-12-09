@@ -9,9 +9,12 @@ export function InstrumentCreatePage() {
       <form 
         onSubmit={(e) => {
           e.preventDefault();
-          fetch("https://kodbazis.hu/api/instruments", {
+          fetch("http://localhost:9000/instruments", {
             method: "POST",
-            credentials: "include",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            // credentials: "include",
             body: JSON.stringify({
               name: e.target.elements.name.value,
               price: e.target.elements.price.value,
